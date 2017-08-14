@@ -27,7 +27,13 @@ public class EvenFinder {
                 oddCount++;
         }
 
-        return find(evenCount) + find(oddCount);
+        int pairs =  find(evenCount) + find(oddCount);
+
+        if (pairs > 1000000000) {
+            return -1;
+        } else {
+            return pairs;
+        }
     }
 
     public int find(int n) {

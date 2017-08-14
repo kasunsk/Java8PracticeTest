@@ -1,20 +1,26 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by kasun on 8/9/17.
  */
 public class StringSubstitution {
 
-    static Map<String,String> rules = new HashMap<>();
+    static Map<String,String> rulesMap = new HashMap<>();
+
+    String[] rules = { "AB", "BA", "CB", "BC", "AA", "CC" };
 
     static {
-        rules.put("AB", "AA");
-        rules.put("BA", "AA");
-        rules.put("CB", "CC");
-        rules.put("BC", "CC");
-        rules.put("AA","A");
-        rules.put("CC", "C");
+        rulesMap.put("AB", "AA");
+        rulesMap.put("BA", "AA");
+        rulesMap.put("CB", "CC");
+        rulesMap.put("BC", "CC");
+        rulesMap.put("AA","A");
+        rulesMap.put("CC", "C");
     }
 
     public static void main(String [] args) {
@@ -26,27 +32,55 @@ public class StringSubstitution {
 
     }
 
-    private String solution(String s) {
+ //   private String solution1(String s) {
 
-        StringBuilder buffer = new StringBuilder(s);
+//        StringBuilder buffer = new StringBuilder(s);
+//
+//        StringBuilder tempBuff = new StringBuilder("");
+//
+//        while (!tempBuff.toString().equals(buffer.toString())) {
+//
+//            tempBuff.setLength(0);
+//            tempBuff.append(buffer);
+//
+//            for (String val : rules.keySet()) {
+//
+//                if (buffer.toString().contains(val)) {
+//
+//                    int index = buffer.indexOf(val);
+//                    buffer.replace(index, index + 2, rules.get(val));
+//                }
+//            }
+//        }
+//
+//        return buffer.toString();
+ //   }
 
-        StringBuilder tempBuff = new StringBuilder("");
+    private String solution(String text){
 
-        while (!tempBuff.toString().equals(buffer.toString())) {
+        ArrayList<String> possibleRules = new ArrayList<String>();
 
-            tempBuff.setLength(0);
-            tempBuff.append(buffer);
-
-            for (String val : rules.keySet()) {
-
-                if (buffer.toString().contains(val)) {
-
-                    int index = buffer.indexOf(val);
-                    buffer.replace(index, index + 2, rules.get(val));
-                }
+        for (String rule : rules) {
+            if (text.contains(rule)) {
+                possibleRules.add(rule);
             }
         }
 
-        return buffer.toString();
+        if (possibleRules.size() == 0) {
+            return text;
+        } else {
+
+            String REGEX = possibleRules.get(0);
+            String REPLACE = rulesMap.get(REGEX);
+
+            Pattern p = Pattern.compile(REGEX);
+            Matcher m = p.matcher(text);
+            text = m.replaceFirst(REPLACE);
+
+            return solution(text);
+
+        }
     }
+
+
 }

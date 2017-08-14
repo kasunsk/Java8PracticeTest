@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -7,9 +8,8 @@ public class Solution {
 
     public static void main(String [] args) {
 
-        int [] array = {8, 24, 3, 24, 1, 17};
+        int [] array = {7, 21, 3, 42, 3, 7};
         Solution solution = new Solution();
-        System.out.println("Solution : " + solution.solution(array));
         System.out.println("Smart solution : "+ solution.smartSolution(array));
 
     }
@@ -41,16 +41,21 @@ public class Solution {
 
     public int smartSolution(int [] array) {
 
+        if (array.length < 2)
+            return -1;
+
         Arrays.sort(array);
 
-        int min = array[1] - array[0];
+        BigInteger min = new BigInteger(String.valueOf(array[1] - array[0]));
 
         for (int i = 1 ; i < array.length - 1; i++) {
 
-            if (min > array[i + 1] - array[i]) {
-                min = array[i + 1] - array[i];
+            BigInteger dist = new BigInteger(String.valueOf(array[i + 1] - array[i]));
+
+            if (min.compareTo(dist) == 1) {
+                min = dist;
             }
         }
-        return min;
+        return min.intValue();
     }
 }
