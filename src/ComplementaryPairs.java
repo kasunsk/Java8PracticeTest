@@ -16,19 +16,23 @@ public class ComplementaryPairs {
     }
 
 
-    public int calculateComplementaryPairs(int [] array, int k) {
+    public int calculateComplementaryPairs(int [] array, int sum) {
 
-        int pairsCount = 0;
+        Arrays.sort(array);
+        int counter = 0;
 
         for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length; j++){
-
-                if (k == array[i] + array[j]) {
-                    pairsCount++;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] + array[j] == sum) {
+                    counter++;
                 }
+
+                if (array[i] > sum && array[j] > sum)
+                    break;
             }
         }
-        return pairsCount;
+
+        return counter;
     }
 
     public int noOfComplementaryPairs(int arr[], int k) {
