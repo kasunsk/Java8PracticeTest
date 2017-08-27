@@ -4,8 +4,7 @@ public class Palindrome {
     public static void main(String[] args) {
 
         Palindrome palindrome = new Palindrome();
-        System.out.println(palindrome.isPalindromeSmart("212212"));
-
+        System.out.println(palindrome.isPalindrome("212212"));
     }
 
     public boolean isPalindrome(String word) {
@@ -22,16 +21,4 @@ public class Palindrome {
         return true;
     }
 
-    public boolean isPalindromeSmart(String word) {
-
-        System.out.println("Word " + word);
-        String reverted = new StringBuilder(word).reverse().toString();
-        System.out.println("Reverted : " + reverted);
-
-        if (word.equals(reverted)) {
-            return true;
-        }
-        return false;
-
-    }
 }
